@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>LeadAI — Lead Research Assistant</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+    <header class="navbar">
+
+        <div class="logo">
+            <span class="logo-icon">✦</span>
+            LeadAI
+        <div class="nav-right">
+
+    <span class="status">
+        <span class="status-dot"></span>
+        AI Assistant Online
+    </span>
+
+    <button id="refreshButton" class="refresh-btn">
+        ↻
+    </button>
+
+    <button id="openModal" class="add-btn">
+        ＋ Add Lead
+    </button>
+
+    <button id="logoutButton" class="logout-btn">
+        Logout
+    </button>
+
+</div>
+
+    </header>
+
+
+    <main class="dashboard">
+
+        <section class="hero">
+
+            <div>
+                <p class="eyebrow">AI-POWERED GROWTH INTELLIGENCE</p>
+
+                <h1>
+                    Lead Research
+                    <span>Assistant</span>
+                </h1>
+
+                <p class="hero-text">
+                    Research, prioritize and understand your
+                    sales leads using intelligent analysis.
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- STAT CARDS -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">◎</div>
+
+                <div>
+                    <p>Total Leads</p>
+                    <h2 id="totalLeads">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card high-card">
+
+                <div class="stat-icon">↗</div>
+
+                <div>
+                    <p>High Priority</p>
+                    <h2 id="highLeads">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card medium-card">
+
+                <div class="stat-icon">◐</div>
+
+                <div>
+                    <p>Medium Priority</p>
+                    <h2 id="mediumLeads">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card low-card">
+
+                <div class="stat-icon">○</div>
+
+                <div>
+                    <p>Low Priority</p>
+                    <h2 id="lowLeads">0</h2>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- INSIGHT + CHART -->
+
+        <section class="analytics-grid">
+
+            <div class="insight-card">
+
+                <div class="card-label">
+                    ✦ AI INSIGHT
+                </div>
+
+                <h2 id="insightTitle">
+                    Start building your pipeline
+                </h2>
+
+                <p id="insightText">
+                    Add your first lead and the AI assistant
+                    will analyze its potential.
+                </p>
+
+            </div>
+
+
+            <div class="chart-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <p class="card-label">
+                            PIPELINE OVERVIEW
+                        </p>
+
+                        <h3>
+                            Lead Distribution
+                        </h3>
+                    </div>
+
+                    <strong id="chartTotal">0</strong>
+
+                </div>
+
+
+                <div class="chart-area">
+
+                    <div class="donut-chart">
+
+                        <div class="donut-center">
+                            <strong id="chartTotal">0</strong>
+                            <span>Leads</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="legend">
+
+                        <div>
+                            <span class="legend-dot high-dot"></span>
+                            High
+                            <strong id="highPercentage">0%</strong>
+                        </div>
+
+                        <div>
+                            <span class="legend-dot medium-dot"></span>
+                            Medium
+                            <strong id="mediumPercentage">0%</strong>
+                        </div>
+
+                        <div>
+                            <span class="legend-dot low-dot"></span>
+                            Low
+                            <strong id="lowPercentage">0%</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LEADS -->
+
+        <section class="leads-section">
+
+            <div class="section-header">
+
+                <div>
+                    <p class="card-label">
+                        LEAD PIPELINE
+                    </p>
+
+                    <h2>Your Leads</h2>
+                </div>
+
+
+                <div class="filters">
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search leads..."
+                    >
+
+
+                    <select id="priorityFilter">
+
+                        <option value="ALL">
+                            All priorities
+                        </option>
+
+                        <option value="HIGH">
+                            High
+                        </option>
+
+                        <option value="MEDIUM">
+                            Medium
+                        </option>
+
+                        <option value="LOW">
+                            Low
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>COMPANY</th>
+
+                            <th>INDUSTRY</th>
+
+                            <th>COUNTRY</th>
+
+                            <th>SCORE</th>
+
+                            <th>PRIORITY</th>
+
+                            <th>INTERNATIONAL</th>
+
+                            <th>ACTION</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="leadTable"></tbody>
+
+                </table>
+
+
+                <div id="emptyState" class="empty-state">
+
+                    <div>✦</div>
+
+                    <h3>No leads found</h3>
+
+                    <p>
+                        Add a lead to start your research pipeline.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ADD LEAD MODAL -->
+
+    <div id="modalOverlay" class="modal-overlay">
+
+        <div class="modal">
+
+            <button
+                id="closeModal"
+                class="close-button">
+                ×
+            </button>
+
+            <p class="card-label">NEW LEAD</p>
+
+            <h2>Add a Lead</h2>
+
+            <p class="modal-description">
+                Enter company information and let LeadAI
+                research the opportunity.
+            </p>
+
+
+            <form id="leadForm">
+
+                <label>
+                    Company Name
+
+                    <input
+                        id="companyName"
+                        type="text"
+                        required
+                        placeholder="e.g. Stripe"
+                    >
+
+                </label>
+
+
+                <label>
+                    Industry
+
+                    <input
+                        id="industry"
+                        type="text"
+                        required
+                        placeholder="e.g. Fintech"
+                    >
+
+                </label>
+
+
+                <label>
+                    Country
+
+                    <input
+                        id="country"
+                        type="text"
+                        required
+                        placeholder="e.g. USA"
+                    >
+
+                </label>
+
+
+                <label>
+                    Website
+
+                    <input
+                        id="website"
+                        type="url"
+                        placeholder="https://example.com"
+                    >
+
+                </label>
+
+
+                <label>
+                    Lead Description
+
+                    <textarea
+                        id="leadDescription"
+                        placeholder="Describe the company..."
+                    ></textarea>
+
+                </label>
+
+
+                <label class="checkbox-label">
+
+                    <input
+                        id="internationalSales"
+                        type="checkbox"
+                    >
+
+                    International Sales
+
+                </label>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        id="cancelModal"
+                        class="cancel-btn">
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        id="submitLead"
+                        class="submit-btn">
+                        <span>✦</span>
+                        Research & Add Lead
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- DETAIL MODAL -->
+
+    <div id="detailOverlay" class="modal-overlay">
+
+        <div class="detail-modal">
+
+            <button
+                onclick="closeDetailModal()"
+                class="close-button">
+                ×
+            </button>
+
+
+            <p class="card-label">
+                AI LEAD ANALYSIS
+            </p>
+
+            <h2 id="detailCompany">Company</h2>
+
+
+            <div class="detail-top">
+
+                <div class="detail-score">
+
+                    <span>Lead Score</span>
+
+                    <strong id="detailScore">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <span
+                    id="detailPriority"
+                    class="priority-badge LOW">
+                    LOW
+                </span>
+
+            </div>
+
+
+            <div class="detail-grid">
+
+                <div>
+                    <span>Industry</span>
+                    <strong id="detailIndustry">-</strong>
+                </div>
+
+                <div>
+                    <span>Country</span>
+                    <strong id="detailCountry">-</strong>
+                </div>
+
+                <div>
+                    <span>International Sales</span>
+                    <strong id="detailInternational">-</strong>
+                </div>
+
+                <div>
+                    <span>Website</span>
+                    <strong id="detailWebsite">-</strong>
+                </div>
+
+            </div>
+
+
+            <div class="research-box">
+
+                <p class="card-label">
+                    RESEARCH SUMMARY
+                </p>
+
+                <p id="detailSummary">
+                    -
+                </p>
+
+            </div>
+
+
+            <div class="research-box">
+
+                <p class="card-label">
+                    AI REASON
+                </p>
+
+                <p id="detailReason">
+                    -
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TOAST -->
+
+    <div id="toast" class="toast">
+
+        <div id="toastIcon">
+            ✓
+        </div>
+
+        <div>
+
+            <strong id="toastTitle">
+                Success
+            </strong>
+
+            <p id="toastMessage">
+                Done
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

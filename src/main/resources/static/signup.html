@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>LeadAI — Create Account</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-container">
+
+        <!-- LEFT SIDE -->
+
+        <div class="auth-brand">
+
+            <a href="home.html"
+               class="auth-logo">
+
+                <div class="logo-icon">
+                    ✦
+                </div>
+
+                <span>LeadAI</span>
+
+            </a>
+
+
+            <div class="auth-message">
+
+                <span class="auth-badge">
+                    ✦ AI-POWERED GROWTH
+                </span>
+
+                <h1>
+                    Build your smarter
+                    <span>growth pipeline.</span>
+                </h1>
+
+                <p>
+                    Research leads, understand their
+                    potential and focus your team's
+                    outreach where it matters.
+                </p>
+
+            </div>
+
+
+            <div class="auth-feature-list">
+
+                <div>
+                    <span>✓</span>
+                    AI-assisted lead research
+                </div>
+
+                <div>
+                    <span>✓</span>
+                    Intelligent lead scoring
+                </div>
+
+                <div>
+                    <span>✓</span>
+                    Growth recommendations
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="auth-card-wrapper">
+
+            <div class="auth-card">
+
+                <a href="home.html"
+                   class="mobile-auth-logo">
+
+                    <div class="logo-icon">
+                        ✦
+                    </div>
+
+                    LeadAI
+
+                </a>
+
+
+                <div class="auth-heading">
+
+                    <h2>
+                        Create your account
+                    </h2>
+
+                    <p>
+                        Start researching smarter leads today.
+                    </p>
+
+                </div>
+
+
+                <form id="signupForm">
+
+
+                    <div class="auth-input-group">
+
+                        <label for="name">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="Enter your name"
+                            required>
+
+                    </div>
+
+
+                    <div class="auth-input-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="you@example.com"
+                            required>
+
+                    </div>
+
+
+                    <div class="auth-input-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Create a password"
+                            required>
+
+                    </div>
+
+
+                    <div class="password-hint">
+                        Use at least 6 characters.
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="auth-submit">
+
+                        Create Account
+
+                        <span>→</span>
+
+                    </button>
+
+
+                </form>
+
+
+                <div class="auth-divider">
+
+                    <span>Already have an account?</span>
+
+                </div>
+
+
+                <a href="login.html"
+                   class="auth-switch">
+
+                    Log in to LeadAI
+
+                </a>
+
+
+                <p class="auth-terms">
+
+                    By creating an account, you agree to
+                    our Terms of Service and Privacy Policy.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+document.getElementById("signupForm").addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+
+        const response = await fetch("/api/auth/signup", {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                password: password
+            })
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        }
+
+        await response.json();
+
+        alert("Account created successfully!");
+
+        window.location.href = "login.html";
+
+    } catch (error) {
+
+        alert("Signup failed: " + error.message);
+
+    }
+
+});
+
+    </script>
+
+</body>
+
+</html>

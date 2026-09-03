@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LeadAI — Login</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-container">
+
+        <!-- LEFT SIDE -->
+        <div class="auth-left">
+
+            <div class="brand">
+                <div class="brand-icon">✦</div>
+                <span>LeadAI</span>
+            </div>
+
+            <div class="auth-left-content">
+
+                <span class="auth-badge">
+                    ✦ AI-POWERED GROWTH
+                </span>
+
+                <h1>
+                    Welcome back to your
+                    <span>growth pipeline.</span>
+                </h1>
+
+                <p>
+                    Research leads, understand their potential
+                    and focus your team's outreach where it matters.
+                </p>
+
+                <div class="auth-features">
+
+                    <div>
+                        <span>✓</span>
+                        AI-assisted lead research
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        Intelligent lead scoring
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        Growth recommendations
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+        <div class="auth-right">
+
+            <div class="auth-form-container">
+
+                <div class="form-heading">
+
+                    <h2>Welcome back</h2>
+
+                    <p>
+                        Log in to continue researching smarter leads.
+                    </p>
+
+                </div>
+
+
+                <form id="loginForm">
+
+                    <label>
+                        Email Address
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="you@example.com"
+                            required>
+                    </label>
+
+
+                    <label>
+                        Password
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            required>
+                    </label>
+
+
+                    <div class="form-options">
+
+                        <label class="remember-me">
+                            <input type="checkbox" id="rememberMe">
+                            <span>Remember me</span>
+                        </label>
+
+                        <a href="#" onclick="return false;">
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="auth-submit">
+                        Log in to LeadAI
+                        <span>→</span>
+                    </button>
+
+                </form>
+
+
+                <div class="auth-divider">
+                    <span>Don't have an account?</span>
+                </div>
+
+
+                <a
+                    href="signup.html"
+                    class="auth-secondary-button">
+                    Create an account
+                </a>
+
+
+                <p class="auth-footer">
+                    By continuing, you agree to our
+                    Terms of Service and Privacy Policy.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        document
+            .getElementById("loginForm")
+            .addEventListener("submit", async function(event) {
+
+                event.preventDefault();
+
+                const email =
+                    document.getElementById("email").value;
+
+                const password =
+                    document.getElementById("password").value;
+
+                try {
+
+                    const response = await fetch("/api/auth/login", {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            email: email,
+                            password: password
+                        })
+
+                    });
+
+
+  if (response.ok) {
+
+    const user = await response.json();
+
+    localStorage.setItem("loggedIn", "true");
+
+    localStorage.setItem(
+        "loggedInUser",
+        JSON.stringify(user)
+    );
+
+    window.location.href = "index.html";} else {
+
+                        const errorText =
+                            await response.text();
+
+                        alert(
+                            "Login failed: " + errorText
+                        );
+
+                    }
+
+                } catch (error) {
+
+                    alert(
+                        "Unable to connect to server."
+                    );
+
+                    console.error(error);
+
+                }
+
+            });
+
+    </script>
+
+</body>
+
+</html>
