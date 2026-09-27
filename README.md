@@ -80,3 +80,21 @@ Spring Boot Backend
    │
    ▼
 MongoDB Atlas
+
+## ▶️ How to Run
+
+### Prerequisites
+- Java 17
+- Maven
+- MongoDB Atlas
+
+### Backend
+1. Set the MONGODB_URI environment variable.
+2. Run:
+
+./mvnw spring-boot:run
+
+### Application
+Open:
+
+http://localhost:8080
